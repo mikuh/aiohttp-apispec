@@ -95,7 +95,6 @@ def request_schema(schema, locations=None, **kwargs):
             )
             if any(body_schema_exists):
                 raise RuntimeError("Multiple body parameters are not allowed")
-        if 'path' in locations: locations[0] = 'match_info'
         func.__schemas__.append({"schema": schema, "locations": locations})
 
         return func

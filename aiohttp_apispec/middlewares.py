@@ -31,8 +31,11 @@ async def validation_middleware(request: web.Request, handler) -> web.Response:
         schemas = orig_handler.__schemas__
     kwargs = {}
     for schema in schemas:
+        ls = schema["locations"]
+        if ls and 'path' in ls:
+            ls[0] = 'math_info'
         data = await parser.parse(
-            schema["schema"], request, locations=schema["locations"]
+            schema["schema"], request, locations=ls
         )
         if data:
             kwargs.update(data)
